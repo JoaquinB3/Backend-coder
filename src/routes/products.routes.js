@@ -151,15 +151,3 @@ productsRouter.delete('/:pid', async (req, res) =>{
 
 });
 
-
-// {
-//     "id": "5cfc31f7-62b4-4e02-b063-6695b2794ab5",
-//     "title": "Xiaomi Note 10 5G",
-//     "description": "Muy bueno",
-//     "code": "LT-ABC-033",
-//     "price": 800000,
-//     "status": true,
-//     "stock": 4,
-//     "category": "Smartphone",
-//     "thumbnails": []
-//   }

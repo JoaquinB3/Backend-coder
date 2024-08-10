@@ -58,7 +58,4 @@ export class ProductManager {
         }
     }
 
-    constructor(parameters) {
-        
-    }
 }
