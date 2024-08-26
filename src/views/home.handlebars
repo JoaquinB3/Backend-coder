@@ -1,0 +1,19 @@
+<h1>Products</h1>
+<section class="productsContainer">
+    <ul id="productList">
+            {{#each products}}
+                <li id="product-{{this.id}}">
+                    <div class="containerImg">
+                        {{#each thumbnails}}
+                            <img src="{{this}}" alt="">
+                        {{/each}}
+                    </div>
+                    <h2>{{this.title}} </h2>
+                    <p>{{this.description}}</p> 
+                    <p>{{this.price}}</p>
+                    <button class="delete-btn" data-id="{{this.id}}">Eliminar</button>
+                </li>
+            {{/each}}
+    </ul>
+</section>
+

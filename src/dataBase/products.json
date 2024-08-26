@@ -9,8 +9,8 @@
     "stock": 25,
     "category": "Electronics",
     "thumbnails": [
-      "/images/products/smartphone_xyz_front.jpg",
-      "/images/products/smartphone_xyz_back.jpg"
+      "https://cc-prod.scene7.com/is/image/CCProdAuthor/smartphone-photography_P1_900x420?$pjpeg$&jpegSize=200&wid=900",
+      "https://cdn.pixabay.com/photo/2017/07/15/19/42/train-track-2507499_1280.jpg"
     ]
   },
   {
@@ -23,8 +23,8 @@
     "stock": 10,
     "category": "Computers",
     "thumbnails": [
-      "/images/products/laptop_abc_front.jpg",
-      "/images/products/laptop_abc_side.jpg"
+      "https://www.perozzi.com.ar/35623-large_default/hewlett-packard-notebook-i3-1125g4-128gb-4gb-14-fhd-wind-10-silver.jpg",
+      "https://images.fravega.com/f500/937806da60c4940ee2c613372dd051c9.jpg"
     ]
   },
   {
@@ -37,8 +37,7 @@
     "stock": 50,
     "category": "Accessories",
     "thumbnails": [
-      "/images/products/auriculares_bluetooth_1.jpg",
-      "/images/products/auriculares_bluetooth_2.jpg"
+      "https://acdn.mitiendanube.com/stores/001/593/734/products/ng-a100bt-pl-angulo1-8d30f7d17ecc9b8c8e16518679401776-1024-1024.jpg"
     ]
   },
   {
@@ -51,8 +50,7 @@
     "stock": 75,
     "category": "Accessories",
     "thumbnails": [
-      "/images/products/teclado_mecanico_rgb_1.jpg",
-      "/images/products/teclado_mecanico_rgb_2.jpg"
+      "https://img.pccomponentes.com/pcblog/3529/teclado-mecanico-caracteristicas.jpg"
     ]
   },
   {
@@ -65,8 +63,7 @@
     "stock": 0,
     "category": "Electronics",
     "thumbnails": [
-      "/images/products/monitor_24_fhd_front.jpg",
-      "/images/products/monitor_24_fhd_side.jpg"
+      "https://i.rtings.com/assets/products/Cxz8Hmmj/samsung-odyssey-g4-g40b-s27bg40/design-medium.jpg?format=auto"
     ]
   },
   {
@@ -79,8 +76,7 @@
     "stock": 15,
     "category": "Electronics",
     "thumbnails": [
-      "/images/products/camara_digital_4k_front.jpg",
-      "/images/products/camara_digital_4k_back.jpg"
+      "https://www.dzoom.org.es/wp-content/uploads/2006/08/camara-digital-compacta-734x489.jpg"
     ]
   },
   {
@@ -93,8 +89,7 @@
     "stock": 30,
     "category": "Accessories",
     "thumbnails": [
-      "/images/products/raton_gaming_1.jpg",
-      "/images/products/raton_gaming_2.jpg"
+      "https://s1.elespanol.com/2021/01/22/omicrono/553205353_171325203_1024x576.jpg"
     ]
   }
 ]

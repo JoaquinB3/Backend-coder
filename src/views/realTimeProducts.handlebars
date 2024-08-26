@@ -1,0 +1,48 @@
+<h1>Products</h1>
+
+<section class="containerForm">
+    <form id="addProductForm">
+            <h3>AGREGAR PRODUCTO</h3>
+            <div>
+                <input type="text" id="title" name="title" placeholder="Titulo">
+            </div>
+            <div>
+                <textarea id="description" name="description" placeholder="Description" required></textarea>
+            </div>
+            <div>
+                <input type="text" id="code" name="code" placeholder="Codigo" required>
+            </div>
+            <div>
+                <input type="number" id="price" name="price" placeholder="Precio" required>
+            </div>
+            <div>
+                <input type="number" id="stock" name="stock" placeholder="Stock" required>
+            </div>
+            <div>
+                <input type="text" id="category" name="category" placeholder="Category" required>
+            </div>
+            <div>
+                <input type="file" id="thumbnails" name="thumbnails" placeholder="Thumbnails" multiple>
+            </div>
+            <button class="buttonAgregar" type="submit">Agregar Producto</button>
+        </form>
+</section>
+
+<section class="productsContainer">
+    <ul id="productList">
+            {{#each products}}
+                <li id="product-{{this.id}}">
+                    <div class="containerImg">
+                        {{#each thumbnails}}
+                            <img src="{{this}}" alt="">
+                        {{/each}}
+                    </div>
+                    <h2>{{this.title}} </h2>
+                    <p>{{this.description}}</p> 
+                    <p>{{this.price}}</p>
+                    <button class="delete-btn" data-id="{{this.id}}">Eliminar</button>
+                </li>
+            {{/each}}
+    </ul>
+</section>
+

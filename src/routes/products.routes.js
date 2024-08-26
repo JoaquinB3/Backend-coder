@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ProductManager } from "../dao/productManager.js";
 import crypto from 'crypto';
 import { uploader } from "../utils/uploader.js";
+import { io } from "../app.js";
 
 export const productsRouter = Router();
 
@@ -85,8 +86,12 @@ productsRouter.post('/',uploader.array("thumbnails", 3), async (req,res) =>{
 
     try {   
         await ProductManager.addProduct(newProduct);
+        io.emit("addProduct", newProduct);
+        res.setHeader("Content-Type", "application/json");
+        
         res.status(201).json({message: "Se agrego el producto correctamente"});
     } catch (error) {
+        res.setHeader("Content-Type", "application/json");
         console.log("Error: no se pudo agregar el producto");    
     }    
 
@@ -143,11 +148,12 @@ productsRouter.delete('/:pid', async (req, res) =>{
         try {
 
             await ProductManager.deleteProductsById(pid);
+            io.emit("deleteProduct", pid);
             res.status(200).json({message: "Se elimino el producto con exito"});
 
         } catch (error) {
             console.log("Error al encontrar el pid");
+            res.status(500).json({ error: "no se pudo eliminar el producto"});
         }
-
 });
 
