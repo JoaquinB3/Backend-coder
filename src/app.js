@@ -6,6 +6,8 @@ import { ProductManager } from './dao/productManager.js';
 import { CartManager } from './dao/cartManager.js';
 import { viewsRouter } from './routes/views.routes.js';
 import { engine } from 'express-handlebars';
+import { dbConnection } from './dbConnection.js';
+import { config } from './config/config.js';
 const app = express();
 
 app.use(express.json());
@@ -25,7 +27,7 @@ app.use('/', viewsRouter);
 ProductManager.path = "./src/dataBase/products.json"
 CartManager.path =  "./src/dataBase/carts.json"
 
-const PORT = 8080;
+const PORT = config.PORT;
 const serverHttp = app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`)
 });
@@ -37,3 +39,5 @@ io.on('connection', (socket) => {
     console.log(`Se conecto un cliente con id: ${ socket.id}`);
     
 });
+
+dbConnection();
