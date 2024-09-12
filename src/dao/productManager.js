@@ -6,16 +6,9 @@ import { parse } from "url";
 export class ProductManager {
     static path
 
-    static async getProducts(){
-        // if(fs.existsSync(this.path)){
-        //     const products = await fs.promises.readFile(this.path, {encoding: "utf-8"})  
-        //     return JSON.parse(products);
-        // }else{
-        //     return []
-        // }
-        console.log(productsModel.find());
-        return productsModel.find();
-        
+    static async getProducts(limit=20, page=1, query={}, sort={}){
+        return productsModel.paginate(query,{lean:true, limit, page, sort})
+
     }
 
     static async getProductsById(pid){

@@ -8,20 +8,11 @@ export const productsRouter = Router();
 
 
 productsRouter.get('/', async (req, res) => {
-    const {limit} = req.query
+    const {limit, page, query, sort} = req.query
     
     try {
-        const products = await ProductManager.getProducts();
-        
-        if(!limit) return res.status(200).json(products)
-        
-        const limitNumber = Number(limit)
-        if (isNaN(limitNumber)) {
-            return res.send("El argumento limit tiene que ser un nuemro")
-        }else{
-            const productsLimit = products.slice(0, limitNumber)
-            return res.status(200).json(productsLimit)
-        }
+        const products = await ProductManager.getProducts(limit, page, query, sort === "asc" ? {price: 1} : {price: -1});
+        return res.status(200).json(products)
     } catch (error) {
         console.log("Error al encontrar los productos");
     }
