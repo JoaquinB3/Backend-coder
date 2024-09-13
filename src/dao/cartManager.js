@@ -1,53 +1,78 @@
 import fs from "fs"
 import crypto from 'crypto'
+import { cartsModel } from "./models/cart.models.js";
 
 export class CartManager {
     static path;
 
     static async createCart() {
+        
         const newCart = {
-            id: crypto.randomUUID(),
             products: []
         }
-
-        if (fs.existsSync(this.path)) {
-            const carts = await fs.promises.readFile(this.path, {enconding: "utf-8"});
-            const cartsArray = JSON.parse(carts);
-            cartsArray.push(newCart)
-            await fs.promises.writeFile(this.path, JSON.stringify(cartsArray, null, 2), {encoding: "utf-8"});      
-        }
+        await cartsModel.create(newCart);
     }
 
     static async getCart(cid) {
-        if (fs.existsSync(this.path)) {
-            const carts = await fs.promises.readFile(this.path, {encoding: "utf-8"});
-            const cart = JSON.parse(carts).find(c => c.id === cid)
-            return cart.products; 
-        }else{
-            return [];
-        }
+        return await cartsModel.findOne({ _id: cid}).populate("products.product");
     } 
 
     static async addProductToCart(cid, pid) {
-        if (fs.existsSync(this.path)) {
-            const carts = JSON.parse(await fs.promises.readFile(this.path, { encoding: "utf-8" }));
-            const cart = carts.find(cart => cart.id === cid);
-            
-            if (!cart) {
-                throw new Error('Cart not found');
-            }
-    
-            const product = cart.products.find(p => p.product === pid);
-            if (product) {
-                product.quantity += 1;
-            } else {
-                cart.products.push({ product: pid, quantity: 1 });
-            }
-    
-            await fs.promises.writeFile(this.path, JSON.stringify(carts, null, 2), { encoding: "utf-8" });
+        const productExist = await cartsModel.findOne({
+            _id: cid,
+            products: { $elemMatch: { product: pid } },
+        });
+
+        if (productExist) {
+            // Si existe el producto, incremento la cantidad
+            await cartsModel.updateOne(
+                { _id: cid, 'products.product': pid },
+                { $inc: { 'products.$.quantity': 1 } },
+            );
         } else {
-            throw new Error('Error de servidor');
+            // Si no existe el producto, lo agrego al carrito
+            await cartsModel.updateOne(
+                { _id: cid },
+                { $push: { products: { product: pid, quantity: 1 } } },
+                { new: true },
+            );
+        }
+    }
+
+    static async deleteProductFrom(cid, pid){
+
+        await cartsModel.updateOne(
+            { _id: cid },
+            { $pull: { products: { product: pid } } }, 
+            { new: true } 
+        );
+
+    }
+
+    static async deleteAllProductsFromCart(cid){
+        const cart = await cartsModel.findOne({ _id: cid})
+        if (cart.products.length === 0) {
+            return { message: "El carrito ya esta vacio" };
+        }else{
+            // Elimino todos los productos del carrito
+            await cartsModel.updateOne(
+                { _id: cid },
+                { $set: { products: [] } }, 
+                { new: true } 
+            );
         }
     }
+    
+    static async updateCart(cid, products){
+        await cartsModel.updateOne({ _id:cid }, { $set: { products: products} }) 
+    }
+
+    static async updateQuantityProduct(cid, pid, quantity){
+        await cartsModel.updateOne(
+            { _id: cid, "products.product": pid}, 
+            { $set : { "products.$.quantity": quantity }}
+        )
+    }
+
 
 }
