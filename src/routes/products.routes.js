@@ -11,7 +11,15 @@ productsRouter.get('/', async (req, res) => {
     const {limit, page, query, sort} = req.query
     
     try {
-        const products = await ProductManager.getProducts(limit, page, query, sort === "asc" ? {price: 1} : {price: -1});
+        const products = await ProductManager.getProducts(
+            limit, 
+            page, 
+            query && {
+                $expr:{
+                    $eq: [{ $toLower: "$category"}, query.toLowerCase()]
+                }
+            }, 
+            sort === "asc" ? {price: 1} : {price: -1});
         return res.status(200).json(products)
     } catch (error) {
         console.log("Error al encontrar los productos");

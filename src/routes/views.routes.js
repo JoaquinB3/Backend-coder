@@ -10,7 +10,7 @@ viewsRouter.get("/", async (req,res) => {
         res.status(200).render("home", {
             title: "Home",
             style: "home.css",    
-            products,
+            products: products.payload,
         })
     } catch (error) {
         console.error('Error al obtener los productos', error);
@@ -26,7 +26,7 @@ viewsRouter.get("/realtimeproducts", async(req,res) => {
         res.status(200).render("realTimeProducts", {
             title,
             style: "home.css",    
-            products,
+            products: products.payload,
         })
     } catch (error) {
         console.error('Error al obtener los productos', error);
