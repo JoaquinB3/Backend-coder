@@ -3,7 +3,7 @@ import { ProductManager } from "../dao/productManager.js";
 
 export const viewsRouter = Router();
 
-viewsRouter.get("/", async (req,res) => {
+viewsRouter.get("/products", async (req,res) => {
     try { 
         const products = await ProductManager.getProducts();
         res.setHeader("Content-Type", "text/html");
