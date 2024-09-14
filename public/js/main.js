@@ -42,32 +42,6 @@ const getProducts = async () => {
         productList.append(productItem);
     });
 
-    // const aFirstPage=document.createElement("a");
-    // aFirstPage.textContent=`Pag.1`
-    // aFirstPage.href=`/products?page=1`
-    // document.body.append(aFirstPage);
-
-    // const aPrevPage=document.createElement("a");
-    // aPrevPage.textContent=`Pag.Anterior`
-    // aPrevPage.href=`/products?page=${datos.prevPage}`
-    // if(datos.hasPrevPage){
-    //     aPrevPage.disable = true;
-    // }
-    // document.body.append(aPrevPage);
-
-    // const aNextPage=document.createElement("a");
-    // aNextPage.textContent=`Pag.Siguiente`
-    // aNextPage.href=`/products?page=${datos.nextPage}`
-    // if(datos.hasNextPage){
-    //     aNextPage.disable = true;
-    // }
-    // document.body.append(aNextPage);
-
-    // const aLastPage=document.createElement("a");
-    // aLastPage.textContent=`Ult.Pag`
-    // aLastPage.href=`/products?page=${datos.totalPages}`
-    // document.body.append(aLastPage);
-
     const aFirstPage = document.createElement("a");
     aFirstPage.textContent = `Pag.1`;
     aFirstPage.href = `/products?page=1`;

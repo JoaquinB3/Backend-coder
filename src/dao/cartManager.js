@@ -14,7 +14,7 @@ export class CartManager {
     }
 
     static async getCart(cid) {
-        return await cartsModel.findOne({ _id: cid}).populate("products.product");
+        return await cartsModel.findOne({ _id: cid}).populate("products.product").lean();
     } 
 
     static async addProductToCart(cid, pid) {

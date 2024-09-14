@@ -229,3 +229,12 @@ input, textarea{
         color: black;
     }
 }
+
+/*Carrito*/
+
+#containerCarrito{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;    
+}
