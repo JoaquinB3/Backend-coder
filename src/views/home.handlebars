@@ -1,21 +1,62 @@
 <h1>Products</h1>
-<section class="productsContainer">
-    <ul id="productList">
-            {{#each products}}
-                <li id="product-{{this.id}}">
-                    <div class="containerImg">
-                        {{#each thumbnails}}
-                            <img src="{{this}}" alt="">
-                        {{/each}}
-                    </div>
-                    <h2>{{this.title}} </h2>
-                    <p>{{this.description}}</p> 
-                    <p>{{this.price}}</p>
-                    <button class="delete-btn" data-id="{{this.id}}">Eliminar</button>
-                </li>
-            {{/each}}
-    </ul>
-</section>
+<div class="containerButtonCart">
+    <a href="/carts"> Ir al carrito</a>
+</div>
+<div id="paginationContainer"></div>
+<div class="containerHome">
+    <div class="filter-container">
+        <!-- Filtro por categoría -->
+        <div class="filter-item">
+            <label for="category">Categoría:</label>
+            <select id="category" name="category">
+                <option value="">Todas las categorías</option>
+                <option value="smartphone">Smartphone</option>
+                <option value="computers">Computers</option>
+                <option value="accessories">Accessories</option>
+                <option value="electronics">Electronics</option>
+                <option value="consola">Consola</option>
+            </select>
+            <button type="button" class="filter-btn" id="filter-category-btn">Aplicar</button>
+        </div>
+
+        <!-- Filtro por orden -->
+        <div class="filter-item">
+            <label for="sort">Ordenar por precio:</label>
+            <select id="sort" name="sort">
+                <option value="asc">De menor a mayor</option>
+                <option value="desc">De mayor a menor</option>
+            </select>
+            <button type="button" class="filter-btn" id="filter-sort-btn">Aplicar</button>
+        </div>
+
+        <!-- Límite de artículos -->
+        <div class="filter-item">
+            <label for="limit">Número de artículos:</label>
+            <input type="number" id="limit" name="limit" min="1" max="100" placeholder="10">
+            <button type="button" class="filter-btn" id="filter-limit-btn">Aplicar</button>
+        </div>
+    </div>
+    <section class="productsContainer">
+        <ul id="productList">
+                {{#each products}}
+                    <li id="product-{{this.id}}">
+                        <div class="containerImg">
+                            {{#each thumbnails}}
+                                <img src="{{this}}" alt="">
+                            {{/each}}
+                        </div>
+                        <h2>{{this.title}} </h2>
+                        <p>{{this.description}}</p> 
+                        <p>{{this.price}}</p>
+                        <button class="delete-btn" data-id="{{this.id}}">Eliminar</button>
+                    </li>
+                {{/each}}
+        </ul>
+    </section>
+
+</div>
+
+
 
 
 <script src="/js/main.js"></script>

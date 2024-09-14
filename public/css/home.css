@@ -3,6 +3,10 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.containerHome{
+    display: flex;
+}
+
 .productsContainer {
     width: 1200px;
     margin: auto;
@@ -238,3 +242,81 @@ input, textarea{
     justify-content: center;
     gap: 30px;    
 }
+
+.containerButtonCart{
+    width: 100%;
+    height: 40px;
+    background-color: #FFF;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a{
+        width: 250px;
+        height: 31px;
+        text-align: center;
+        text-decoration: none;
+        padding: 5px;
+        border: none;
+        background-color:rgb(90, 90, 90);
+        color: white;
+        &:hover{
+            background-color:rgb(54, 54, 54);
+        }
+
+    }
+}
+
+/*Filtros*/
+
+/* Estilos para el contenedor de los filtros */
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0 10px;
+}
+
+/* Estilos para las etiquetas y selectores */
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+select, input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 180px;
+}
+
+/* Botones individuales */
+.filter-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #c82333;
+}
+

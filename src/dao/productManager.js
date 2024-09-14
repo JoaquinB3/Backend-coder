@@ -6,7 +6,7 @@ import { parse } from "url";
 export class ProductManager {
     static path
 
-    static async getProducts(limit=3, page=1, query={}, sort={}){ 
+    static async getProducts(limit=10, page=1, query={}, sort={}){ 
         const response = await productsModel.paginate(query,{lean:true, limit, page, sort})
 
         return { 

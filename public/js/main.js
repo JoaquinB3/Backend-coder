@@ -11,7 +11,7 @@ const getProducts = async () => {
         page=1
     }
     if (!limit || isNaN(Number(limit))) {
-        limit=3
+        limit=10
     }
     if (!sort || (sort !== "asc" && sort !== "desc")) {
         sort = "";
@@ -55,11 +55,14 @@ const getProducts = async () => {
         productList.append(productItem);
     });
 
+    paginationContainer = document.getElementById("paginationContainer")    
+    paginationContainer.innerHTML = "";
+
     const aFirstPage = document.createElement("a");
     aFirstPage.textContent = `Pag.1`;
     aFirstPage.href = `/products?page=1`;
     aFirstPage.classList.add('pagination-link', 'first-page');
-    document.body.append(aFirstPage);
+    paginationContainer.append(aFirstPage);
 
     const aPrevPage = document.createElement("a");
     aPrevPage.textContent = `Pag.Anterior`;
@@ -68,7 +71,7 @@ const getProducts = async () => {
     if (!datos.hasPrevPage) {
         aPrevPage.classList.add('disabled');
     }
-    document.body.append(aPrevPage);
+    paginationContainer.append(aPrevPage);
 
     const aNextPage = document.createElement("a");
     aNextPage.textContent = `Pag.Siguiente`;
@@ -77,17 +80,69 @@ const getProducts = async () => {
     if (!datos.hasNextPage) {
         aNextPage.classList.add('disabled');
     }
-    document.body.append(aNextPage);
+    paginationContainer.append(aNextPage);
 
     const aLastPage = document.createElement("a");
     aLastPage.textContent = `Ult.Pag`;
     aLastPage.href = `/products?page=${datos.totalPages}`;
     aLastPage.classList.add('pagination-link', 'last-page');
-    document.body.append(aLastPage);
+    paginationContainer.append(aLastPage);
 
 }   
 
-getProducts()
+document.getElementById('filter-category-btn').addEventListener('click', () => {
+    let query = document.getElementById('category').value;
+    let params = new URLSearchParams(location.search);
+    params.set('query', query);
+    history.pushState({}, '', '?' + params.toString());
+    getProducts();
+});
+
+document.getElementById('filter-sort-btn').addEventListener('click', () => {
+    let sort = document.getElementById('sort').value;
+    let params = new URLSearchParams(location.search);
+    params.set('sort', sort);
+    history.pushState({}, '', '?' + params.toString());
+    getProducts();
+});
+
+document.getElementById('filter-limit-btn').addEventListener('click', () => {
+    let limit = document.getElementById('limit').value;
+    let params = new URLSearchParams(location.search);
+    params.set('limit', limit);
+    history.pushState({}, '', '?' + params.toString());
+    getProducts();
+});
+
+const addToCart = async (productId) => {
+    try {
+        let response = await fetch(`/api/carts/66e52da8999edc73fbbd1dc1/products/${productId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        let result = await response.json();
+        if (response.ok) {
+            alert(result.message || 'Producto añadido al carrito');
+        } else {
+            alert(result.error || 'Error al añadir el producto al carrito');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al añadir el producto al carrito');
+    }
+};
+
+getProducts().then(()=>{
+    document.querySelectorAll('.favorite-btn').forEach(button => {
+        button.addEventListener('click', async (event) => {
+            const productId = event.target.dataset.id;
+            addToCart(productId);
+        });
+    });
+});
 
 
 
