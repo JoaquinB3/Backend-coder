@@ -4,11 +4,24 @@ const getProducts = async () => {
 
     let params = new URLSearchParams(location.search);
     let page = params.get("page");
+    let limit = params.get("limit");
+    let sort = params.get("sort");
+    let query = params.get("query");
     if (!page || isNaN(Number(page))) {
         page=1
     }
+    if (!limit || isNaN(Number(limit))) {
+        limit=3
+    }
+    if (!sort || (sort !== "asc" && sort !== "desc")) {
+        sort = "";
+    }
+    if (!query) {
+        query=""
+    }
+    
 
-    let respuesta = await fetch(`/api/products?page=${page}`);
+    let respuesta = await fetch(`/api/products?page=${page}&limit=${limit}&sort=${sort}&query=${query}`);
     let datos = await respuesta.json();
     console.log(datos);
 
@@ -31,7 +44,7 @@ const getProducts = async () => {
                     <p class="product-price">$${product.price}</p>
                 
                     <div class="product-actions">
-                        <button class="favorite-btn" data-id="${product.id}">Añadir a favoritos</button>
+                        <button class="favorite-btn" data-id="${product.id}">Añadir al carrito</button>
                         <button class="delete-btn" data-id="${product.id}">Eliminar</button>
                     </div>
                 </div>
@@ -75,8 +88,6 @@ const getProducts = async () => {
 }   
 
 getProducts()
-
-
 
 
 
