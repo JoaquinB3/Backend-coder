@@ -28,6 +28,15 @@ export class ProductManager {
         return await productsModel.findOne({ _id: pid }).lean();
     }
 
+    static async getProductsByCode(code){
+        try {
+            const product = await productsModel.findOne({ code: code});
+            return product;
+        } catch (error) {
+            console.log('Error al buscar el producto por codigo:', error);
+        }
+    }
+
     static async addProduct(newProduct){
         await productsModel.create(newProduct);
     }

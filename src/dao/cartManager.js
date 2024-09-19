@@ -10,7 +10,7 @@ export class CartManager {
         const newCart = {
             products: []
         }
-        await cartsModel.create(newCart);
+        return await cartsModel.create(newCart);
     }
 
     static async getCart(cid) {
@@ -40,6 +40,12 @@ export class CartManager {
     }
 
     static async deleteProductFrom(cid, pid){
+        const productExist = await cartsModel.findOne({
+            _id: cid,
+            products: { $elemMatch: { product: pid } },
+        });
+
+        if (!productExist) throw new Error(`El producto con id ${pid} no existe en el carrito`) 
 
         await cartsModel.updateOne(
             { _id: cid },

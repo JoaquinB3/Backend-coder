@@ -63,6 +63,10 @@ productsRouter.post('/',uploader.array("thumbnails", 3), async (req,res) =>{
         category,
     } = req.body;
 
+    if (!price || !stock || !title || !description || !code || !category) {
+        return res.status(400).json({ error: "Faltan datos obligatorios" });
+    }
+
     const priceNumber = Number(price);
     const stockNumber = Number(stock);
 
@@ -70,7 +74,10 @@ productsRouter.post('/',uploader.array("thumbnails", 3), async (req,res) =>{
     if ( stock < 0 ) return res.status(400).json({error: "El stock debe ser mayor o igual a 0"});
     if ( price <= 0 ) return req.status(400).json({error: "El precio debe ser mayor que 0"});
 
-
+    const existingProduct = await ProductManager.getProductsByCode(code);
+    if (existingProduct){
+        return res.status(400).json({error: "El codigo ya esta en uso."});
+    } 
     const newProduct = {
         id: crypto.randomUUID(),
         title,
@@ -87,7 +94,6 @@ productsRouter.post('/',uploader.array("thumbnails", 3), async (req,res) =>{
         await ProductManager.addProduct(newProduct);
         io.emit("addProduct", newProduct);
         res.setHeader("Content-Type", "application/json");
-        
         res.status(201).json({message: "Se agrego el producto correctamente"});
     } catch (error) {
         res.setHeader("Content-Type", "application/json");
